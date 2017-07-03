@@ -1,0 +1,32 @@
+Apache Format PoC
+-----------------
+
+On line 159 the marco DBPRINT0(s) can be used to leak memory addresses. In the PoC below i have written a simple C program to test my theory.
+
+#include <stdio.h>
+#define DBPRINT0(s) printf(s)
+
+int main()
+{
+  DBPRINT0("0x%x\n");
+  return 0;
+}
+
+I compile this with gcc, no flags have been set.
+Here is my output:
+
+[n@space_station_1]: ~>$ vim main.c
+[n@space_station_1]: ~>$ gcc main.c
+[n@space_station_1]: ~>$ ./a.out
+0x2a2ce968
+
+
+RAW INFORMATION
+Line: 159
+/var/www/html/uploads/httpd-trunk//server/mpm/netware/mpm_netware.c
+Raw Line: #define DBPRINT0(s) printf(s)
+
+Credits 
+
+https://q-analysis.com/
+https://twitter.com/q_analysis_
